@@ -9,3 +9,11 @@ Over the past decade, novel Remote Photoplethysmography (rPPG) methods in the li
 - Install the required libraries `pip install -r requirements.txt`
 
 ## Basic Usage Guidelines
+- To apply the frPPG to find the best combination of pre- and post-processing algorithms for each of the available core rPPG extraction algorithms, run the `frPPG.py` file by doing:
+  - `frPPG(dataset_name='name_of_dataset', dataset_dir='path/to/dataset').simulate()`
+- If you want to independently use the frPPG method on your own videos, do the following:
+  - `flexible_rPPG(input_video, gt_file=None, face_det_and_tracking, rgb_threshold, pre_filtering, method, post_filtering, hr_estimation, remove_outlier, dataset=None):`
+  - Remember to set the `gt_file=None` and `dataset to None`
+
+- To simulate the original implementations of the rPPG methods, you can do:
+  - 
