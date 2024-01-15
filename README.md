@@ -6,3 +6,5 @@ Over the past decade, novel Remote Photoplethysmography (rPPG) methods in the li
 ## Basic Setup Guidelines
 - Clone the [repo](https://github.com/Building-Robotics-Lab/flexible_rPPG)
 - Install the required libraries `pip install -requirements.txt`
+
+## Basic Usage Guidelines
