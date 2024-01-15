@@ -131,8 +131,7 @@ class frPPG:
                 f.write('\n\n')
 
     def flexible_rPPG(self, input_video, gt_file, face_det_and_tracking, rgb_threshold, pre_filtering, method,
-                      post_filtering,
-                      hr_estimation, remove_outlier, dataset):
+                      post_filtering, hr_estimation, remove_outlier, dataset):
 
         """
         Get the estimated heart rate using rPPG based on the selected methods and input parameters
@@ -218,7 +217,10 @@ class frPPG:
         # Extract the heart rate from the bvp signals
         hrES = get_bpm(post_filtered_sig, fps, hr_estimation, remove_outlier=remove_outlier,
                        params=hr_estimation_params)
-        hrGT = ground_truth_method(ground_truth_file=gt_file, dataset=dataset)
+        if gt_file is not None:
+            hrGT = ground_truth_method(ground_truth_file=gt_file, dataset=dataset)
+        else:
+            hrGT = '-'
 
         return hrES, hrGT
 
