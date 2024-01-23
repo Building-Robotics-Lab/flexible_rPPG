@@ -258,5 +258,3 @@ class CHROMImplementations:
         hrGT = np.mean(hrGT)
 
         return hrGT
-
-CHROMImplementations(dataset_name=None, dataset_dir=None).chrom_frPPG(input_video=r'C:\Users\Admin\Desktop\Main\NUS\Research Engineer Position\VHR\My Datasets\Distance and Light Dataset\Connor\Exercise\Connor-D1-L00-Ex-18-12-07-18-13-07.mp4', dataset=None)

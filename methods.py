@@ -1,5 +1,4 @@
 from scipy.stats import cumfreq
-
 from flexible_rPPG.filters import *
 from flexible_rPPG.utils import *
 from scipy.signal import windows

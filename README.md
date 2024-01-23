@@ -23,6 +23,9 @@ Over the past decade, novel Remote Photoplethysmography (rPPG) methods in the li
   - `CHROMImplementations(dataset_name='name_of_dataset', dataset_dir='path/to/dataset', implementation='original').simulate()`
 - If you want to simulate the frPPG implementations, you can do:
   - `CHROMImplementations(dataset_name='name_of_dataset', dataset_dir='path/to/dataset', implementation='frPPG').simulate()`
+- Similarly, if you want to independently use the frPPG method on your own videos, do the following:
+  - `CHROMImplementations(dataset_name=None, dataset_dir=None).chrom_frPPG(input_video='path/to/video', dataset='UBFC2')`
+  - Remember to set the `dataset_dir=None` and `dataset=None` and for the frPPG function, set the dataset to be the frPPG method you want (in this example, its using the best combination of pre- and post-processing algorithms for CHROM-UBFC2 dataset)
 
 ## Datasets
 You can obtain/request the datasets from the following links:
