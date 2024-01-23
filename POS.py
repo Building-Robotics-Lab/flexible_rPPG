@@ -2,7 +2,7 @@
 
 This module contains the framework implemented by https://ieeexplore.ieee.org/document/7565547 which is
 also known as POS rPPG by other research papers. This is the closest implementation of the original
-framework that has been proposed. It also contains the improved version.
+framework that has been proposed. It also contains the frPPG version.
 
 """
 
@@ -35,10 +35,10 @@ class POSImplementations:
                 hrGT.append(self.pos_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i+1}/{len(self.videos)} videos processed")
 
-        elif self.implementation == 'improved':
+        elif self.implementation == 'frPPG':
             print(f"Processing {self.dataset_name} dataset using {self.implementation} implementation of POS")
             for i in tqdm(range(len(self.videos))):
-                hrES.append(self.pos_improved(input_video=self.videos[i], dataset=self.dataset_name))
+                hrES.append(self.pos_frPPG(input_video=self.videos[i], dataset=self.dataset_name))
                 hrGT.append(self.pos_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i+1}/{len(self.videos)} videos processed")
 
@@ -78,9 +78,9 @@ class POSImplementations:
 
         return hrES
 
-    def pos_improved(self, input_video, dataset=None):
+    def pos_frPPG(self, input_video, dataset=None):
         """
-        Estimate the heart rate of the input video using the improved POS implementation depending on the dataset used.
+        Estimate the heart rate of the input video using the frPPG POS implementation depending on the dataset used.
 
         Parameters
         ----------

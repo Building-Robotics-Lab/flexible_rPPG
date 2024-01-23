@@ -2,7 +2,7 @@
 
 This module contains the framework implemented by https://opg.optica.org/oe/fulltext.cfm?uri=oe-18-10-10762&id=199381
 which is also known as ICA rPPG by other research papers. This is the closest implementation of the original framework
-that has been proposed. It also contains the improved version.
+that has been proposed. It also contains the frPPG version.
 
 """
 
@@ -36,10 +36,10 @@ class ICAImplementations:
                 hrGT.append(self.ica_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
-        elif self.implementation == 'improved':
+        elif self.implementation == 'frPPG':
             print(f"Processing {self.dataset_name} dataset using {self.implementation} implementation of ICA")
             for i in tqdm(range(len(self.videos))):
-                hrES.append(self.ica_improved(input_video=self.videos[i], dataset=self.dataset_name))
+                hrES.append(self.ica_frPPG(input_video=self.videos[i], dataset=self.dataset_name))
                 hrGT.append(self.ica_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
@@ -87,7 +87,7 @@ class ICAImplementations:
 
         return hrES
 
-    def ica_improved(self, input_video, comp=1, dataset=None):
+    def ica_frPPG(self, input_video, comp=1, dataset=None):
         """
         Estimate the heart rate of the input video using the ICA implementation depending on the dataset used.
 

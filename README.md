@@ -22,7 +22,7 @@ Over the past decade, novel Remote Photoplethysmography (rPPG) methods in the li
   - `from CHROM import CHROMImplementations`
   - `CHROMImplementations(dataset_name='name_of_dataset', dataset_dir='path/to/dataset', implementation='original').simulate()`
 - If you want to simulate the frPPG implementations, you can do:
-  - `CHROMImplementations(dataset_name='name_of_dataset', dataset_dir='path/to/dataset', implementation='improved').simulate()`
+  - `CHROMImplementations(dataset_name='name_of_dataset', dataset_dir='path/to/dataset', implementation='frPPG').simulate()`
 
 ## Datasets
 You can obtain/request the datasets from the following links:

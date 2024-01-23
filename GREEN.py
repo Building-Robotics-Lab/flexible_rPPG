@@ -35,10 +35,10 @@ class GREENImplementations:
                 hrGT.append(self.green_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
-        elif self.implementation == 'improved':
+        elif self.implementation == 'frPPG':
             print(f"Processing {self.dataset_name} dataset using {self.implementation} implementation of GREEN")
             for i in tqdm(range(len(self.videos))):
-                hrES.append(self.green_improved(input_video=self.videos[i], dataset=self.dataset_name))
+                hrES.append(self.green_frPPG(input_video=self.videos[i], dataset=self.dataset_name))
                 hrGT.append(self.green_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
@@ -101,7 +101,7 @@ class GREENImplementations:
 
         return hrES
 
-    def green_improved(self, input_video, dataset):
+    def green_frPPG(self, input_video, dataset):
         """
         Estimate the heart rate of the input video using the imporved GREEN implementation depending on dataset used
 

@@ -2,7 +2,7 @@
 
 This module contains the framework implemented by https://ieeexplore.ieee.org/document/6523142 which is
 also known as CHROM rPPG by other research papers. This is the closest implementation of the original
-framework that has been proposed. It also contains the improved version.
+framework that has been proposed. It also contains the frPPG version.
 
 """
 
@@ -36,10 +36,10 @@ class CHROMImplementations:
                 hrGT.append(self.chrom_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i+1}/{len(self.videos)} videos processed")
 
-        elif self.implementation == 'improved':
+        elif self.implementation == 'frPPG':
             print(f"Processing {self.dataset_name} dataset using {self.implementation} implementation of CHROM")
             for i in tqdm(range(len(self.videos))):
-                hrES.append(self.chrom_improved(input_video=self.videos[i], dataset=self.dataset_name))
+                hrES.append(self.chrom_frPPG(input_video=self.videos[i], dataset=self.dataset_name))
                 hrGT.append(self.chrom_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i+1}/{len(self.videos)} videos processed")
 
@@ -121,9 +121,9 @@ class CHROMImplementations:
 
         return hrES
 
-    def chrom_improved(self, input_video, dataset=None):
+    def chrom_frPPG(self, input_video, dataset=None):
         """
-        Estimate the heart rate of the input video using the improved CHROM implementation depending on the dataset used
+        Estimate the heart rate of the input video using the frPPG CHROM implementation depending on the dataset used
 
         Parameters
         ----------
@@ -258,3 +258,5 @@ class CHROMImplementations:
         hrGT = np.mean(hrGT)
 
         return hrGT
+
+CHROMImplementations(dataset_name=None, dataset_dir=None).chrom_frPPG(input_video=r'C:\Users\Admin\Desktop\Main\NUS\Research Engineer Position\VHR\My Datasets\Distance and Light Dataset\Connor\Exercise\Connor-D1-L00-Ex-18-12-07-18-13-07.mp4', dataset=None)

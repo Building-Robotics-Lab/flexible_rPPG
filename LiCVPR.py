@@ -3,7 +3,7 @@
 This module contains the framework implemented by
 https://openaccess.thecvf.com/content_cvpr_2014/papers/Li_Remote_Heart_Rate_2014_CVPR_paper.pdf
 also known as LiCVPR rPPG by other research papers. This is the closest implementation of the original
-framework that has been proposed. This also includes the improved implementations
+framework that has been proposed. This also includes the frPPG implementations
 
 """
 
@@ -46,11 +46,11 @@ class LiCVPRImplementations:
                 hrGT.append(self.licvpr_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
-        elif self.implementation == 'improved':
+        elif self.implementation == 'frPPG':
             print(f"Processing {self.dataset_name} dataset using {self.implementation} implementation of LiCVPR")
             for i in tqdm(range(len(self.videos))):
                 # raw_bg_signal = extract_raw_bg_signal(input_video=self.videos[i], dataset=self.dataset_name, color='g')
-                hrES.append(self.licvpr_improved(input_video=self.videos[i], dataset=self.dataset_name, raw_bg_green_signal=self.raw_bg_signal[i]))
+                hrES.append(self.licvpr_frPPG(input_video=self.videos[i], dataset=self.dataset_name, raw_bg_green_signal=self.raw_bg_signal[i]))
                 hrGT.append(self.licvpr_ground_truth(ground_truth_file=self.gt_files[i], dataset=self.dataset_name))
                 # print(f"{i + 1}/{len(self.videos)} videos processed")
 
@@ -112,7 +112,7 @@ class LiCVPRImplementations:
 
         return hrES
 
-    def licvpr_improved(self, input_video, raw_bg_green_signal, heart_rate_calculation_mode='continuous',
+    def licvpr_frPPG(self, input_video, raw_bg_green_signal, heart_rate_calculation_mode='continuous',
                         hr_interval=None, dataset=None):
         """
         Estimate the heart rate of the input video using the LiCVPR framework
