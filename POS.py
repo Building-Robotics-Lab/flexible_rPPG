@@ -20,9 +20,10 @@ class POSImplementations:
         self.dataset_dir = dataset_dir
         self.implementation = implementation
 
-        self.videos, self.gt_files = get_video_and_gt_files(dataset=self.dataset_name, base_dir=self.dataset_dir)
-        if len(self.videos) != len(self.gt_files):
-            raise ValueError("The number of videos does not match the number of ground truth files.")
+        if dataset_name is not None and dataset_dir is not None:
+            self.videos, self.gt_files = get_video_and_gt_files(dataset=self.dataset_name, base_dir=self.dataset_dir)
+            if len(self.videos) != len(self.gt_files):
+                raise ValueError("The number of videos does not match the number of ground truth files.")
 
     def simulate(self):
         hrES, hrGT = [], []
