@@ -33,3 +33,6 @@ You can obtain/request the datasets from the following links:
 - [PURE](https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-informatik-und-automatisierung/profil/institute-und-fachgebiete/institut-fuer-technische-informatik-und-ingenieurinformatik/fachgebiet-neuroinformatik-und-kognitive-robotik/data-sets-code/pulse-rate-detection-dataset-pure)
 - [COHFACE](https://www.idiap.ch/en/scientific-research/data/cohface)
 
+## References
+If you use this code, please cite the following paper:
+xxxx
