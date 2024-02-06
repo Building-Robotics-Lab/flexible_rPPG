@@ -6,6 +6,29 @@ from scipy.sparse import spdiags
 
 
 def apply_filters(signal, combination, filtering_params=None):
+    """
+    Checks if the signal is a 1D, 2D, or 3D array. Depending on the type, the next function 'apply_filter_to_signal'
+    will filter the signal.
+
+    Parameters
+    ----------
+    signal : list, nparray
+        Signal to filter
+    combination : tuple
+        Input a tuple of different combination of filtering methods. Available algorithms are 'detrending_filter',
+        'moving_average_filter', 'butterworth_bp_filter', and 'fir_bp_filter'.
+        For example: ('detrending_filter', 'fir_bp_filter')
+    filtering_params : dict
+        Specify the lower frequency and higher frequency limit to filter the signal on.
+        Example: {'low': 0.75, 'high': 4.0}
+
+    Returns
+    -------
+    nparray
+        Returns a filtered signal
+
+    """
+
     if signal.ndim == 3 or signal.ndim == 2:
         filtered = np.array([apply_filter_to_signal(each_window, combination, filtering_params) for each_window in signal])
     else:  # This is for GREEN and LiCVPR since they don't have signal windowing
@@ -15,15 +38,43 @@ def apply_filters(signal, combination, filtering_params=None):
 
 
 def apply_filter_to_signal(window, combination, filtering_params):
+    """
+    Applies each type of filter to the whole signal by taking in each windowed signal.
+    GREEN and LiCVPR does not have signal windowing so it filters the whole video's signal.
+
+    Parameters
+    ----------
+    window : list, nparray
+        A window of signal to filter
+    combination : tuple
+        Input a tuple of different combination of filtering methods. Available algorithms are 'detrending_filter',
+        'moving_average_filter', 'butterworth_bp_filter', and 'fir_bp_filter'.
+        For example: ('detrending_filter', 'fir_bp_filter')
+    filtering_params : dict
+        Specify the lower frequency and higher frequency limit to filter the signal on.
+        Example: {'low': 0.75, 'high': 4.0}
+
+    Returns
+    -------
+    nparray
+        Returns a filtered window signal
+
+    """
+
+    # If the combination is empty, return the signal
     if combination == ():
         return np.array(window)
 
+    # Use each filtering algorithm to filter the input windowed signal
     for each_filter in combination:
+        # Import the filter module based on input filter name
         filter_module = import_module('flexible_rPPG.filters')
         filter = getattr(filter_module, each_filter)
 
+        # For butterworth and FIR bandpass filters, specify the higher and lower frequency threshold
         if each_filter == 'butterworth_bp_filter' or each_filter == 'fir_bp_filter':
             window = filter(window, **filtering_params)
+        # For other types of filter, just apply the filter
         else:
             window = filter(window)
 
