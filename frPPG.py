@@ -12,7 +12,7 @@ class frPPG:
         self.dataset_dir = dataset_dir
 
         self.videos, self.gt_files = get_video_and_gt_files(dataset=self.dataset_name, base_dir=self.dataset_dir)
-        self.videos, self.gt_files = self.videos[:2], self.gt_files[:2]
+
         print(self.videos, self.gt_files)
         if len(self.videos) != len(self.gt_files):
             raise ValueError("The number of videos does not match the number of ground truth files.")
