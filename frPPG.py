@@ -1,3 +1,5 @@
+import importlib
+
 from flexible_rPPG.sig_extraction_utils import *
 from flexible_rPPG.methods import *
 from flexible_rPPG.hr_estimator import *
@@ -11,11 +13,10 @@ class frPPG:
         self.dataset_name = dataset_name
         self.dataset_dir = dataset_dir
 
-        self.videos, self.gt_files = get_video_and_gt_files(dataset=self.dataset_name, base_dir=self.dataset_dir)
-
-        print(self.videos, self.gt_files)
-        if len(self.videos) != len(self.gt_files):
-            raise ValueError("The number of videos does not match the number of ground truth files.")
+        if dataset_name is not None and dataset_dir is not None:
+            self.videos, self.gt_files = get_video_and_gt_files(dataset=self.dataset_name, base_dir=self.dataset_dir)
+            if len(self.videos) != len(self.gt_files):
+                raise ValueError("The number of videos does not match the number of ground truth files.")
 
     def simulate(self):
         """
@@ -170,8 +171,10 @@ class frPPG:
 
         Returns
         -------
-        float
-            Returns an estimated heart rate and ground truth heart rate
+        hrES : float
+            Estimated heart rate using rPPG
+        hrGT : float
+            Ground truth heart rate from dataset
         """
 
         # Get the important parameters
@@ -251,6 +254,7 @@ class frPPG:
             If the face detection and tracking, and method name is invalid, it throws an error.
         """
 
+        # Get the parameters for ROI extraction algorithms
         sig_parameters = {'CHROM_ROI': {'ROI_name': 'CHROM', 'ROI_type': 'None', 'width': 1, 'height': 1},
                           'POS_ROI': {'ROI_name': 'POS', 'ROI_type': 'None', 'width': 1, 'height': 1},
                           'ICA_ROI': {'ROI_name': 'ICA', 'ROI_type': 'None', 'width': 0.6, 'height': 1},
@@ -261,10 +265,14 @@ class frPPG:
                           'LiCVPR_ROI': {'ROI_name': 'LiCVPR', 'ROI_type': 'None', 'width': 1, 'height': 1}}
         sig_params = sig_parameters[face_det_and_tracking]
 
-        ground_truth_method = getattr(
-            getattr(__import__(f'{method}'), f'{method}Implementations')(dataset_name=self.dataset_name,
-                                                                         dataset_dir=self.dataset_dir),
-            f'{method.lower()}_ground_truth')
+        # Get the ground truth method based on core rPPG algorithm
+        module_name = f"flexible_rPPG.{method}"
+        module = importlib.import_module(module_name)
+        class_ = getattr(module, f"{method}Implementations")
+        instance = class_(dataset_name=self.dataset_name, dataset_dir=self.dataset_dir)
+        ground_truth_method = getattr(instance, f"{method.lower()}_ground_truth")
+
+        # Get the parameters for each core rPPG algorithm stage
         if method == 'CHROM':
             window_params = {'window_size': 1.6, 'increment': 0.8}
             filtering_params = {'low': 0.67, 'high': 4.0}
@@ -289,3 +297,7 @@ class frPPG:
             assert False, "Please choose the correct method. Available methods: 'CHROM', 'POS', 'ICA', 'LiCVPR', or 'GREEN'"
 
         return sig_params, window_params, filtering_params, hr_estimation_params, ground_truth_method
+
+# method = "CHROM"
+# ground_truth_method = getattr(getattr(__import__(f'{method}'), f'{method}Implementations')(dataset_name=None, dataset_dir=None), f'{method.lower()}_ground_truth')
+# print(ground_truth_method)
