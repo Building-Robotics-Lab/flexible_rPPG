@@ -297,7 +297,3 @@ class frPPG:
             assert False, "Please choose the correct method. Available methods: 'CHROM', 'POS', 'ICA', 'LiCVPR', or 'GREEN'"
 
         return sig_params, window_params, filtering_params, hr_estimation_params, ground_truth_method
-
-# method = "CHROM"
-# ground_truth_method = getattr(getattr(__import__(f'{method}'), f'{method}Implementations')(dataset_name=None, dataset_dir=None), f'{method.lower()}_ground_truth')
-# print(ground_truth_method)
